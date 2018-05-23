@@ -5,7 +5,6 @@ public class Position {
     private boolean isFilled;
     private Shape occupyingShape;
 
-
     public Position() {
         isFilled = false;
         occupyingShape = null;
@@ -23,13 +22,7 @@ public class Position {
         this.occupyingShape = occupyingShape;
     }
 
-    public Shape getOccupyingShape() {
+    public Shape getShape() {
         return occupyingShape;
     }
-
-    public void clearPosition() {
-        occupyingShape = null;
-    }
-
-
 }

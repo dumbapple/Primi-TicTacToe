@@ -7,12 +7,10 @@ import java.util.List;
 public class Board {
     private boolean isCompletelyFilled;
     private List<Position> positions;
-//    private List<Shape> shapesPlaced;
 
     public Board() {
         isCompletelyFilled = false;
         positions = new ArrayList<>();
-//        shapesPlaced = new ArrayList<>();
     }
 
     public void setBoardFull() {
@@ -26,8 +24,4 @@ public class Board {
     public List<Position> getBoardPositions() {
         return positions;
     }
-
-//    public List<Shape> getShapesPlaced() {
-//
-//    }
 }
