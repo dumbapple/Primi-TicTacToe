@@ -20,5 +20,6 @@ public class Player {
 
     public void setWinner() {
         isWinner = true;
+        System.out.println("Congratulations on your glorious victory!");
     }
 }

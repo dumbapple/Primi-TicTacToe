@@ -15,16 +15,16 @@ public class Position {
         isFilled = true;
     }
 
-    public void setUnfilled() {
-        isFilled = false;
-    }
-
     public boolean getFilledStatus() {
         return isFilled;
     }
 
     public void setShape(Shape occupyingShape) {
         this.occupyingShape = occupyingShape;
+    }
+
+    public Shape getOccupyingShape() {
+        return occupyingShape;
     }
 
     public void clearPosition() {

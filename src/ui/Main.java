@@ -9,20 +9,13 @@ public class Main {
 
     public static void main(String args[]) {
 
-        Scanner input = new Scanner(System.in);
+        Scanner playerInput = new Scanner(System.in);
 
-        System.out.println("Greetings! I am Primi-TicTacToe, the primitive text-based TicTacToe game!");
-        System.out.println("");
-        System.out.println("To play, take turns entering the position you'd like to put your shape on (see below)");
-        System.out.println("");
-        System.out.println("topLeft        topMiddle          topRight");
-        System.out.println("centreLeft     centreMiddle       centreRight");
-        System.out.println("bottomLeft     bottomMiddle       bottomRight");
-        System.out.println("");
-        System.out.println("Initializing game board ...");
-        System.out.println("");
-
-        Board gameBoard = new Board();
+        System.out.println("Greetings! I am Primi-TicTacToe, the primitive text-based TicTacToe game!" + "\n" +
+                "To play, take turns entering the position you'd like to put your shape on (see below)" + "\n" +
+                "topLeft        topMiddle          topRight" + "\n" +
+                "centreLeft     centreMiddle       centreRight" + "\n" +
+                "bottomLeft     bottomMiddle       bottomRight");
 
         Position topLeft = new Position();
         Position topRight = new Position();
@@ -34,7 +27,7 @@ public class Main {
         Position bottomRight = new Position();
         Position bottomMiddle = new Position();
 
-
+        Board gameBoard = new Board();
         gameBoard.getBoardPositions().add(topLeft);
         gameBoard.getBoardPositions().add(topRight);
         gameBoard.getBoardPositions().add(topMiddle);
@@ -45,53 +38,54 @@ public class Main {
         gameBoard.getBoardPositions().add(bottomRight);
         gameBoard.getBoardPositions().add(bottomMiddle);
 
-        Player p1 = new Player();
-        Player p2 = new Player();
+        Player playerOne = new Player();
+        Player playerTwo = new Player();
+        Shape circle = new Circle();
 
-        Shape circle = new Shape();
-        Shape cross = new Shape();
+        Shape cross;
+
+        GameState gameState = new GameState(gameBoard);
+        gameState.addPlayer(playerOne);
+        gameState.addPlayer(playerTwo);
 
         System.out.println("Player 1: Please choose your shape (enter 'circle' or 'cross')!");
-        String playerOneShape = input.next();
+        String playerOneShape = playerInput.next();
 
         if (playerOneShape.equals("circle")) {
-            circle.setAssociatedPlayer(p1);
-            p1.setSelectedShape(circle);
+            circle.setAssociatedPlayer(playerOne);
+            playerOne.setSelectedShape(circle);
             System.out.println("You have chosen to be 'circle'. Player 2 shall be 'cross'!");
-            cross.setAssociatedPlayer(p2);
-            p2.setSelectedShape(cross);
+            cross.setAssociatedPlayer(playerTwo);
+            playerTwo.setSelectedShape(cross);
         } else if (playerOneShape.equals("cross")) {
-            circle.setAssociatedPlayer(p2);
-            p2.setSelectedShape(circle);
+            circle.setAssociatedPlayer(playerTwo);
+            playerTwo.setSelectedShape(circle);
             System.out.println("You have chosen to be 'cross'. Player 2 shall be 'circle'!");
-            cross.setAssociatedPlayer(p1);
-            p1.setSelectedShape(cross);
+            cross.setAssociatedPlayer(playerOne);
+            playerOne.setSelectedShape(cross);
         }
 
+        int positionsFilled = gameState.getPositionsFilled();
 
-
-        int numSpacesFilled = gameBoard.getNumSpacesFilled();
-
-        while ((numSpacesFilled < 9) &&
-                !(topLeft.getFilledStatus() && topMiddle.getFilledStatus() && topRight.getFilledStatus()) &&
-                !(centreLeft.getFilledStatus() && centreMiddle.getFilledStatus() && centreRight.getFilledStatus()) &&
-                !(bottomLeft.getFilledStatus() && bottomMiddle.getFilledStatus() && bottomRight.getFilledStatus()) &&
-
-                !(topLeft.getFilledStatus() && centreLeft.getFilledStatus() && bottomLeft.getFilledStatus()) &&
-                !(topMiddle.getFilledStatus() && centreMiddle.getFilledStatus() && bottomMiddle.getFilledStatus()) &&
-                !(topRight.getFilledStatus() && centreRight.getFilledStatus() && bottomRight.getFilledStatus()) &&
-
-                !(topLeft.getFilledStatus() && centreMiddle.getFilledStatus() && bottomRight.getFilledStatus()) &&
-                !(bottomLeft.getFilledStatus() && centreMiddle.getFilledStatus() && topRight.getFilledStatus())) {
+        while (positionsFilled < 9) &&
+                 {
 
             System.out.println("Player One's turn:");
-            input.next();
-            numSpacesFilled++;
-            
+            String move = playerInput.next();
+            switch (move) {
+                case "topLeft":
+                    if (topLeft.getFilledStatus() == false ) {
+                        topLeft.setFilled();
+                        topLeft.setShape(playerOne.getSelectedShape());
+                        gameState.addShapeToBoard(playerOne.getSelectedShape());
+                    }
+            }
+
             System.out.println("Player 2's turn");
-            input.next();
+            playerInput.next();
 
         }
+        gameState.setGameOver();
         System.out.println("Game over!");
     }
 }
