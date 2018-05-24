@@ -58,9 +58,9 @@ public class GameState {
         return isGameOver;
     }
 
-    public void setPlayerShape(Player player, Shape input) {
-            player.setSelectedShape(input);
-
-        }
+//    public void setPlayerShape(Player player, Shape input) {
+//            player.setSelectedShape(input);
+//
+//        }
     }
-}
+
