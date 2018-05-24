@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameState {
-    private Board gameBoard;
     private boolean isGameOver;
+    private int numPositionsFilled;
+    private Board gameBoard;
     private List<Player> players;
     private List<Shape> shapesPlaced;
-    private List<Position> positions;
-    private int positionsFilled;
+
 
     public GameState(Board gameBoard) {
         isGameOver = false;
-        positionsFilled = 0;
+        numPositionsFilled = 0;
         this.gameBoard = gameBoard;
         players = new ArrayList<>();
         shapesPlaced = new ArrayList<>();
@@ -27,8 +27,8 @@ public class GameState {
         return isGameOver;
     }
 
-    public int getPositionsFilled() {
-        return positionsFilled;
+    public int getNumPositionsFilled() {
+        return numPositionsFilled;
     }
 
     public void addPlayer(Player player) {
@@ -41,13 +41,26 @@ public class GameState {
         return players;
     }
 
-
     public void addShapeToBoard(Shape shape) {
         shapesPlaced.add(shape);
-        positionsFilled++;
+        numPositionsFilled++;
     }
 
     public List<Shape> getShapesPlaced() {
         return shapesPlaced;
+    }
+
+    public boolean isGameOverCondition(List<Position> positions, Player player) {
+        if (player.getPositionsCovered().containsAll(positions)) {
+            player.setWinner();
+            setGameOver();
+        }
+        return isGameOver;
+    }
+
+    public void setPlayerShape(Player player, Shape input) {
+            player.setSelectedShape(input);
+
+        }
     }
 }

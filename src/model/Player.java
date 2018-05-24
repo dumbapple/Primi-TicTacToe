@@ -15,13 +15,6 @@ public class Player {
         positionsCovered = new ArrayList<>();
     }
 
-    public void addPositionCovered(Position position) {
-        positionsCovered.add(position);
-    }
-
-    public List<Position> getPositionsCovered() {
-        return positionsCovered;
-    }
     public void setSelectedShape(Shape selectedShape) {
         this.selectedShape = selectedShape;
     }
@@ -33,5 +26,19 @@ public class Player {
     public void setWinner() {
         isWinner = true;
         System.out.println("Congratulations on your glorious victory!");
+    }
+
+    public boolean getWinnerStatus() {
+        return isWinner;
+    }
+
+    public void addPositionCovered(Position position) {
+        if (!positionsCovered.contains(position)) {
+            positionsCovered.add(position);
+        }
+    }
+
+    public List<Position> getPositionsCovered() {
+        return positionsCovered;
     }
 }

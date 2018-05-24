@@ -1,13 +1,16 @@
 package model;
 
-// Represents the player-selected shapes for the game; in this case, CIRCLE and CROSS
-public abstract class Shape {
+import java.util.ArrayList;
+import java.util.List;
+
+// Represents the player-selected shapes for the game; for our purposes, 'circle' and 'cross'
+public class Shape {
     private Player associatedPlayer;
-    private Position spotOccupying;
+    private List<Position> spotsOccupied;
 
     public Shape() {
         associatedPlayer = null;
-        spotOccupying = null;
+        spotsOccupied = new ArrayList<>();
     }
 
     public void setAssociatedPlayer(Player player) {
@@ -18,11 +21,11 @@ public abstract class Shape {
         return associatedPlayer;
     }
 
-    public void setSpotOccupying(Position position) {
-        spotOccupying = position;
+    public void addOccupyingSpot(Position position) {
+        spotsOccupied.add(position);
     }
 
-    public Position getSpotOccupying() {
-        return spotOccupying;
+    public List<Position> getSpotsOccupied() {
+        return spotsOccupied;
     }
 }

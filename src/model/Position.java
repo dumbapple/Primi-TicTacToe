@@ -3,18 +3,13 @@ package model;
 // Represents a particular spot on a 3x3 game board
 public class Position {
     private boolean isFilled;
-    private Shape occupyingShape;
     private String name;
-    private Board gameBoard;
+    private Shape occupiedShape;
 
     public Position(String name) {
-        this.name = name;
         isFilled = false;
-        occupyingShape = null;
-    }
-
-    public Board getGameBoard() {
-        return gameBoard;
+        this.name = name;
+        occupiedShape = null;
     }
 
     public String getName() {
@@ -28,11 +23,11 @@ public class Position {
         return isFilled;
     }
 
-    public void setShape(Shape occupyingShape) {
-        this.occupyingShape = occupyingShape;
+    public void setOccupiedShapeShape(Shape occupiedShape) {
+        this.occupiedShape = occupiedShape;
     }
 
-    public Shape getShape() {
-        return occupyingShape;
+    public Shape getOccupiedShape() {
+        return occupiedShape;
     }
 }
