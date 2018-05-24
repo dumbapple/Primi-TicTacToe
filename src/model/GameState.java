@@ -23,6 +23,10 @@ public class GameState {
         isGameOver = true;
     }
 
+    public boolean isGameOver() {
+        return isGameOver;
+    }
+
     public int getPositionsFilled() {
         return positionsFilled;
     }
@@ -46,5 +50,4 @@ public class GameState {
     public List<Shape> getShapesPlaced() {
         return shapesPlaced;
     }
-
 }

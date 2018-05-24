@@ -16,34 +16,33 @@ public class Main {
                 "four   five    six" + "\n" +
                 "seven  eight   nine");
 
-        Position one = new Position();
-        Position two = new Position();
-        Position three = new Position();
-        Position four = new Position();
-        Position five = new Position();
-        Position six = new Position();
-        Position seven = new Position();
-        Position eight = new Position();
-        Position nine = new Position();
-        Board gameBoard = new Board();
-        gameBoard.getBoardPositions().add(one);
-        gameBoard.getBoardPositions().add(two);
-        gameBoard.getBoardPositions().add(three);
-        gameBoard.getBoardPositions().add(four);
-        gameBoard.getBoardPositions().add(five);
-        gameBoard.getBoardPositions().add(six);
-        gameBoard.getBoardPositions().add(seven);
-        gameBoard.getBoardPositions().add(eight);
-        gameBoard.getBoardPositions().add(nine);
-
         Player playerOne = new Player();
         Player playerTwo = new Player();
-        Shape circle = new Circle();
-        Shape cross = new Cross();
-
+        Board gameBoard = new Board();
         GameState gameState = new GameState(gameBoard);
         gameState.addPlayer(playerOne);
         gameState.addPlayer(playerTwo);
+        Position one = new Position("one");
+        Position two = new Position("two");
+        Position three = new Position("three");
+        Position four = new Position("four");
+        Position five = new Position("five");
+        Position six = new Position("six");
+        Position seven = new Position("seven");
+        Position eight = new Position("eight");
+        Position nine = new Position("nine");
+        gameBoard.addPositionToBoard(one);
+        gameBoard.addPositionToBoard(two);
+        gameBoard.addPositionToBoard(three);
+        gameBoard.addPositionToBoard(four);
+        gameBoard.addPositionToBoard(five);
+        gameBoard.addPositionToBoard(six);
+        gameBoard.addPositionToBoard(seven);
+        gameBoard.addPositionToBoard(eight);
+        gameBoard.addPositionToBoard(nine);
+        Shape circle = new Circle();
+        Shape cross = new Cross();
+
 
         System.out.println("Player 1: Please choose your shape (enter 'circle' or 'cross')!");
         String playerOneShape = playerInput.next();
@@ -61,18 +60,6 @@ public class Main {
             cross.setAssociatedPlayer(playerOne);
             playerOne.setSelectedShape(cross);
         }
-
-        int positionsFilled = gameState.getPositionsFilled();
-        boolean isNull = gameBoard.getBoardPositions().isEmpty();
-        boolean gameOver = (positionsFilled == 9) ||
-                ((one.getShape() == two.getShape()) && (two.getShape() == three.getShape())) ||
-                ((four.getShape() == five.getShape()) && (five.getShape() == six.getShape())) ||
-                ((seven.getShape() == eight.getShape()) && (eight.getShape() == nine.getShape())) ||
-                ((one.getShape() == four.getShape()) && (four.getShape() == seven.getShape())) ||
-                ((two.getShape() == five.getShape()) && (five.getShape() == eight.getShape())) ||
-                ((three.getShape() == six.getShape()) && (six.getShape() == nine.getShape())) ||
-                ((one.getShape() == five.getShape()) && (five.getShape() == nine.getShape())) ||
-                ((three.getShape() == five.getShape()) && (five.getShape() == seven.getShape()));
 
         List<Position> r1 = new ArrayList<>();
         r1.add(one);
@@ -115,27 +102,78 @@ public class Main {
         d2.add(seven);
 
 
-        while () {
+        while (gameState.isGameOver() == false) {
             System.out.println("Player One's turn:");
-            String move = playerInput.next();
-            for (Position p : gameBoard.getBoardPositions()) {
-                if (move == p.toString()) {
-                    p.setFilled();
-                    p.setShape(playerOne.getSelectedShape());
-                    gameState.addShapeToBoard(playerOne.getSelectedShape());
+            String playerOneMove = playerInput.next();
 
+            for (Position position : gameBoard.getBoardPositions()) {
+                if (playerOneMove.equals(position.getName()) && position.getFilledStatus() == false) {
+                    gameState.addShapeToBoard(playerOne.getSelectedShape());
+                    position.setShape(playerOne.getSelectedShape());
+                    playerOne.getSelectedShape().setSpotOccupying(position);
+                    position.setFilled();
                 }
             }
 
             System.out.println("Player 2's turn");
-            String otherMove = playerInput.next();
-            for (Position p : gameBoard.getBoardPositions()) {
-                if (otherMove == p.toString()) {
-                    p.setFilled();
-                    p.setShape(playerTwo.getSelectedShape());
-                    gameState.addShapeToBoard(playerTwo.getSelectedShape());
+            String playerTwoMove = playerInput.next();
+
+            for (Position position : gameBoard.getBoardPositions()) {
+                if (playerTwoMove.equals(position.getName()) && position.getFilledStatus() == false) {
+                    gameState.addShapeToBoard(playerOne.getSelectedShape());
+                    position.setShape(playerOne.getSelectedShape());
+                    playerOne.getSelectedShape().setSpotOccupying(position);
+                    position.setFilled();
                 }
             }
+
+            // check if win condition is met
+            for (Position position : ) {
+                if (position.getFilledStatus() == true && ) {
+                    gameState.setGameOver();
+                }
+            }
+            for (Position position : r2) {
+                if (position.getFilledStatus() == true) {
+                    gameState.setGameOver();
+                }
+            }
+            for (Position position : r3) {
+                if (position.getFilledStatus() == true) {
+                    gameState.setGameOver();
+                }
+            }
+            for (Position position : c1) {
+                if (position.getFilledStatus() == true) {
+                    gameState.setGameOver();
+                }
+            }
+            for (Position position : c2) {
+                if (position.getFilledStatus() == true) {
+                    gameState.setGameOver();
+                }
+            }
+            for (Position position : c3) {
+                if (position.getFilledStatus() == true) {
+                    gameState.setGameOver();
+                }
+            }
+            for (Position position : d1) {
+                if (position.getFilledStatus() == true) {
+                    gameState.setGameOver();
+                }
+            }
+            for (Position position : d2) {
+                if (position.getFilledStatus() == true) {
+                    gameState.setGameOver();
+                }
+            }
+            if (gameState.getPositionsFilled() == 9) {
+                gameBoard.setBoardFull();
+                gameState.setGameOver();
+            }
+
+
 
         }
         if (gameState.getPositionsFilled() == 9) {

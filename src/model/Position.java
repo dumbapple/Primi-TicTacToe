@@ -4,12 +4,22 @@ package model;
 public class Position {
     private boolean isFilled;
     private Shape occupyingShape;
+    private String name;
+    private Board gameBoard;
 
-    public Position() {
+    public Position(String name) {
+        this.name = name;
         isFilled = false;
         occupyingShape = null;
     }
 
+    public Board getGameBoard() {
+        return gameBoard;
+    }
+
+    public String getName() {
+        return name;
+    }
     public void setFilled() {
         isFilled = true;
     }
