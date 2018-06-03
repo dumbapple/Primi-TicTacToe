@@ -28,7 +28,7 @@ public class GameState {
 
     public void setGameOver() {
         gameOverStatus = true;
-        System.out.println("Game over!");
+        System.out.println("\n" + "Game over!");
     }
 
     public boolean getGameOverStatus() {
@@ -46,17 +46,14 @@ public class GameState {
         numPositionsFilled++;
     }
 
-    public boolean isGameOver(List<Position> positions, Player player) {
+    public boolean isThreeConnected(List<Position> positions, Player player) {
         if (player.getPositionsCovered().containsAll(positions)) {
             player.setWinner();
             setGameOver();
         }
-        if (numPositionsFilled == 9) {
-            System.out.println("Tie game; no winner!");
-            setGameOver();
-        }
         return gameOverStatus;
     }
+
 }
 
 

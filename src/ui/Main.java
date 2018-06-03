@@ -76,7 +76,6 @@ public class Main {
         Player playerTwo = gameState.getPlayerTwo();
 
 
-
         // choosing shapes
         System.out.println("\n");
         System.out.println("Player One: Please choose your shape (enter 'circle' or 'cross')!");
@@ -96,7 +95,7 @@ public class Main {
             cross.setAssociatedPlayer(gameState.getPlayerOne());
         }
 
-        // running the game
+        //x running the game
         while (gameState.getGameOverStatus() == false) {
             System.out.println("\n");
             System.out.println("Player One's turn:");
@@ -109,47 +108,52 @@ public class Main {
                     gameState.getPlayerOne().addPositionCovered(position);
                 }
             }
+            // check if win condition is met after playerOne makes a move
+            gameState.isThreeConnected(r1, gameState.getPlayerOne());
+            gameState.isThreeConnected(r2, gameState.getPlayerOne());
+            gameState.isThreeConnected(r3, gameState.getPlayerOne());
+            gameState.isThreeConnected(c1, gameState.getPlayerOne());
+            gameState.isThreeConnected(c2, gameState.getPlayerOne());
+            gameState.isThreeConnected(c3, gameState.getPlayerOne());
+            gameState.isThreeConnected(d1, gameState.getPlayerOne());
+            gameState.isThreeConnected(d2, gameState.getPlayerOne());
 
-            // check if win condition is met after playerA makes a move
-            gameState.isGameOver(r1, gameState.getPlayerOne());
-            gameState.isGameOver(r2, gameState.getPlayerOne());
-            gameState.isGameOver(r3, gameState.getPlayerOne());
-            gameState.isGameOver(c1, gameState.getPlayerOne());
-            gameState.isGameOver(c2, gameState.getPlayerOne());
-            gameState.isGameOver(c3, gameState.getPlayerOne());
-            gameState.isGameOver(d1, gameState.getPlayerOne());
-            gameState.isGameOver(d2, gameState.getPlayerOne());
             if (gameState.getNumPositionsFilled() == 9) {
                 gameBoard.setBoardFull();
                 gameState.setGameOver();
-            }
+                System.out.println("\n" + "Tie game! No winner.");
+            } else {
+                if (playerOne.getWinnerStatus() == false) {
+                    System.out.println("\n");
+                    System.out.println("Player Two's turn");
+                    String playerTwoMove = playerInput.next();
 
-            System.out.println("\n");
-            System.out.println("Player Two's turn");
-            String playerTwoMove = playerInput.next();
+                    for (Position position : gameBoard.getPositions()) {
+                        if (playerTwoMove.equals(position.getName()) && position.isFilled() == false) {
+                            gameState.linkPositionToShape(gameState.getPlayerOne().getSelectedShape(), position);
+                            position.setOccupiedShape(gameState.getPlayerOne().getSelectedShape());
+                            gameState.getPlayerTwo().getSelectedShape().addOccupyingSpot(position);
+                            gameState.getPlayerTwo().addPositionCovered(position);
+                            position.setFilled();
+                        }
+                    }
 
-            for (Position position : gameBoard.getPositions()) {
-                if (playerTwoMove.equals(position.getName()) && position.isFilled() == false) {
-                    gameState.linkPositionToShape(gameState.getPlayerOne().getSelectedShape(), position);
-                    position.setOccupiedShape(gameState.getPlayerOne().getSelectedShape());
-                    gameState.getPlayerTwo().getSelectedShape().addOccupyingSpot(position);
-                    gameState.getPlayerTwo().addPositionCovered(position);
-                    position.setFilled();
+                    // check if win condition is met after playerB makes a move
+                    gameState.isThreeConnected(r1, gameState.getPlayerTwo());
+                    gameState.isThreeConnected(r2, gameState.getPlayerTwo());
+                    gameState.isThreeConnected(r3, gameState.getPlayerTwo());
+                    gameState.isThreeConnected(c1, gameState.getPlayerTwo());
+                    gameState.isThreeConnected(c2, gameState.getPlayerTwo());
+                    gameState.isThreeConnected(c3, gameState.getPlayerTwo());
+                    gameState.isThreeConnected(d1, gameState.getPlayerTwo());
+                    gameState.isThreeConnected(d2, gameState.getPlayerTwo());
+                    if (gameState.getNumPositionsFilled() == 9) {
+                        gameBoard.setBoardFull();
+                        System.out.println("Tie game! No winner.");
+                        gameState.setGameOver();
+
+                    }
                 }
-            }
-
-            // check if win condition is met after playerB makes a move
-            gameState.isGameOver(r1, gameState.getPlayerTwo());
-            gameState.isGameOver(r2, gameState.getPlayerTwo());
-            gameState.isGameOver(r3, gameState.getPlayerTwo());
-            gameState.isGameOver(c1, gameState.getPlayerTwo());
-            gameState.isGameOver(c2, gameState.getPlayerTwo());
-            gameState.isGameOver(c3, gameState.getPlayerTwo());
-            gameState.isGameOver(d1, gameState.getPlayerTwo());
-            gameState.isGameOver(d2, gameState.getPlayerTwo());
-            if (gameState.getNumPositionsFilled() == 9) {
-                gameBoard.setBoardFull();
-                gameState.setGameOver();
             }
         }
     }

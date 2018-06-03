@@ -27,7 +27,7 @@ public class Player {
 
     public void setWinner() {
         isWinner = true;
-        System.out.println(name + " is victorious!");
+        System.out.println("\n" + name + " is victorious!");
 
     }
 

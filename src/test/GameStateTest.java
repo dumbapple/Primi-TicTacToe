@@ -19,6 +19,6 @@
 //
 //    @Test
 //    public void testConstructor() {
-//        assertTrue(gameState.isGameOver() == false);
+//        assertTrue(gameState.isThreeConnected() == false);
 //    }
 //}
