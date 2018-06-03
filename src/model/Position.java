@@ -19,11 +19,11 @@ public class Position {
         isFilled = true;
     }
 
-    public boolean getFilledStatus() {
+    public boolean isFilled() {
         return isFilled;
     }
 
-    public void setOccupiedShapeShape(Shape occupiedShape) {
+    public void setOccupiedShape(Shape occupiedShape) {
         this.occupiedShape = occupiedShape;
     }
 

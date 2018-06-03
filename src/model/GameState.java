@@ -1,66 +1,62 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 
+// Represents the status of all events in the game
 public class GameState {
-    private boolean isGameOver;
+    private boolean gameOverStatus;
     private int numPositionsFilled;
     private Board gameBoard;
-    private List<Player> players;
-    private List<Shape> shapesPlaced;
-
+    private Player playerOne;
+    private Player playerTwo;
 
     public GameState(Board gameBoard) {
-        isGameOver = false;
+        gameOverStatus = false;
         numPositionsFilled = 0;
         this.gameBoard = gameBoard;
-        players = new ArrayList<>();
-        shapesPlaced = new ArrayList<>();
+        playerOne = new Player("Player One");
+        playerTwo = new Player("Player Two");
+    }
+
+    public Player getPlayerOne() {
+        return playerOne;
+    }
+
+    public Player getPlayerTwo() {
+        return playerTwo;
     }
 
     public void setGameOver() {
-        isGameOver = true;
+        gameOverStatus = true;
+        System.out.println("Game over!");
     }
 
-    public boolean isGameOver() {
-        return isGameOver;
+    public boolean getGameOverStatus() {
+        return gameOverStatus;
     }
 
     public int getNumPositionsFilled() {
         return numPositionsFilled;
     }
 
-    public void addPlayer(Player player) {
-        if (!players.contains(player)) {
-            players.add(player);
-        }
-    }
-
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public void addShapeToBoard(Shape shape) {
-        shapesPlaced.add(shape);
+    public void linkPositionToShape(Shape shape, Position position) {
+        shape.getSpotsOccupied().add(position);
+        position.setOccupiedShape(shape);
+        position.setFilled();
         numPositionsFilled++;
     }
 
-    public List<Shape> getShapesPlaced() {
-        return shapesPlaced;
-    }
-
-    public boolean isGameOverCondition(List<Position> positions, Player player) {
+    public boolean isGameOver(List<Position> positions, Player player) {
         if (player.getPositionsCovered().containsAll(positions)) {
             player.setWinner();
             setGameOver();
         }
-        return isGameOver;
+        if (numPositionsFilled == 9) {
+            System.out.println("Tie game; no winner!");
+            setGameOver();
+        }
+        return gameOverStatus;
     }
+}
 
-//    public void setPlayerShape(Player player, Shape input) {
-//            player.setSelectedShape(input);
-//
-//        }
-    }
 

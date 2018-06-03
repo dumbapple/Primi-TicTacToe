@@ -3,13 +3,15 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-// Represents a player
+// Represents a participating player
 public class Player {
     private Shape selectedShape;
     private boolean isWinner;
     private List<Position> positionsCovered;
+    private String name;
 
-    public Player() {
+    public Player(String name) {
+        this.name = name;
         this.selectedShape = null;
         isWinner = false;
         positionsCovered = new ArrayList<>();
@@ -25,7 +27,8 @@ public class Player {
 
     public void setWinner() {
         isWinner = true;
-        System.out.println("Congratulations on your glorious victory!");
+        System.out.println(name + " is victorious!");
+
     }
 
     public boolean getWinnerStatus() {
@@ -35,6 +38,7 @@ public class Player {
     public void addPositionCovered(Position position) {
         if (!positionsCovered.contains(position)) {
             positionsCovered.add(position);
+            position.setFilled();
         }
     }
 
