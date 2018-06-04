@@ -28,7 +28,7 @@ public class GameState {
 
     public void setGameOver() {
         gameOverStatus = true;
-        System.out.println("\n" + "Game over!");
+        System.out.println("Game over!");
     }
 
     public boolean getGameOverStatus() {
@@ -53,7 +53,6 @@ public class GameState {
         }
         return gameOverStatus;
     }
-
 }
 
 

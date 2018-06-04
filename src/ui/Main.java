@@ -10,71 +10,66 @@ public class Main {
     public static void main(String args[]) {
 
         // greeting message
-        System.out.println("Welcome to Primi-TicTacToe, the primitive text-based TicTacToe game!" + "\n" + "\n" +
-                "To play, take turns entering the position you'd like to put your shape on (see below)" + "\n" + "\n" +
-                "one    two     three" + "\n" +
-                "four   five    six" + "\n" +
-                "seven  eight   nine");
+        System.out.println("Welcome to Primi-TicTacToe, the primitive text-based TicTacToe game!" + "\n");
+        System.out.println("Take turns entering the position you'd like to put your shape on (see below)" + "\n");
+        System.out.println("1    2     3" + "\n");
+        System.out.println("4    5     6" + "\n");
+        System.out.println("7    8     9" + "\n");
 
-        // initialization code
+        // initializing positions
+        Position one = new Position("1");
+        Position two = new Position("2");
+        Position three = new Position("3");
+        Position four = new Position("4");
+        Position five = new Position("5");
+        Position six = new Position("6");
+        Position seven = new Position("7");
+        Position eight = new Position("8");
+        Position nine = new Position("9");
 
-        Position one = new Position("one");
-        Position two = new Position("two");
-        Position three = new Position("three");
-        Position four = new Position("four");
-        Position five = new Position("five");
-        Position six = new Position("six");
-        Position seven = new Position("seven");
-        Position eight = new Position("eight");
-        Position nine = new Position("nine");
-
-        List<Position> r1 = new ArrayList<>();
-        r1.add(one);
-        r1.add(two);
-        r1.add(three);
-        List<Position> r2 = new ArrayList<>();
-        r2.add(four);
-        r2.add(five);
-        r2.add(six);
-        List<Position> r3 = new ArrayList<>();
-        r3.add(seven);
-        r3.add(eight);
-        r3.add(nine);
-        List<Position> c1 = new ArrayList<>();
-        c1.add(one);
-        c1.add(four);
-        c1.add(seven);
-        List<Position> c2 = new ArrayList<>();
-        c2.add(two);
-        c2.add(five);
-        c2.add(eight);
-        List<Position> c3 = new ArrayList<>();
-        c3.add(three);
-        c3.add(six);
-        c3.add(nine);
-        List<Position> d1 = new ArrayList<>();
-        d1.add(one);
-        d1.add(five);
-        d1.add(nine);
-        List<Position> d2 = new ArrayList<>();
-        d2.add(three);
-        d2.add(five);
-        d2.add(seven);
+        List<Position> row1 = new ArrayList<>();
+        row1.add(one);
+        row1.add(two);
+        row1.add(three);
+        List<Position> row2 = new ArrayList<>();
+        row2.add(four);
+        row2.add(five);
+        row2.add(six);
+        List<Position> row3 = new ArrayList<>();
+        row3.add(seven);
+        row3.add(eight);
+        row3.add(nine);
+        List<Position> column1 = new ArrayList<>();
+        column1.add(one);
+        column1.add(four);
+        column1.add(seven);
+        List<Position> column2 = new ArrayList<>();
+        column2.add(two);
+        column2.add(five);
+        column2.add(eight);
+        List<Position> column3 = new ArrayList<>();
+        column3.add(three);
+        column3.add(six);
+        column3.add(nine);
+        List<Position> diagonal1 = new ArrayList<>();
+        diagonal1.add(one);
+        diagonal1.add(five);
+        diagonal1.add(nine);
+        List<Position> diagonal2 = new ArrayList<>();
+        diagonal2.add(three);
+        diagonal2.add(five);
+        diagonal2.add(seven);
 
         List<Position> gamePositions = new ArrayList<>();
-        gamePositions.addAll(r1);
-        gamePositions.addAll(r2);
-        gamePositions.addAll(r3);
+        gamePositions.addAll(row1);
+        gamePositions.addAll(row2);
+        gamePositions.addAll(row3);
 
         Board gameBoard = new Board(gamePositions);
         GameState gameState = new GameState(gameBoard);
 
         Shape circle = new Shape();
         Shape cross = new Shape();
-
-        Player playerOne = gameState.getPlayerOne();
-        Player playerTwo = gameState.getPlayerTwo();
-
 
         // choosing shapes
         System.out.println("\n");
@@ -109,21 +104,23 @@ public class Main {
                 }
             }
             // check if win condition is met after playerOne makes a move
-            gameState.isThreeConnected(r1, gameState.getPlayerOne());
-            gameState.isThreeConnected(r2, gameState.getPlayerOne());
-            gameState.isThreeConnected(r3, gameState.getPlayerOne());
-            gameState.isThreeConnected(c1, gameState.getPlayerOne());
-            gameState.isThreeConnected(c2, gameState.getPlayerOne());
-            gameState.isThreeConnected(c3, gameState.getPlayerOne());
-            gameState.isThreeConnected(d1, gameState.getPlayerOne());
-            gameState.isThreeConnected(d2, gameState.getPlayerOne());
+            gameState.isThreeConnected(row1, gameState.getPlayerOne());
+            gameState.isThreeConnected(row2, gameState.getPlayerOne());
+            gameState.isThreeConnected(row3, gameState.getPlayerOne());
+            gameState.isThreeConnected(column1, gameState.getPlayerOne());
+            gameState.isThreeConnected(column2, gameState.getPlayerOne());
+            gameState.isThreeConnected(column3, gameState.getPlayerOne());
+            gameState.isThreeConnected(diagonal1, gameState.getPlayerOne());
+            gameState.isThreeConnected(diagonal2, gameState.getPlayerOne());
 
-            if (gameState.getNumPositionsFilled() == 9) {
+            if (gameState.getNumPositionsFilled()
+                    == 9) {
                 gameBoard.setBoardFull();
-                gameState.setGameOver();
                 System.out.println("\n" + "Tie game! No winner.");
+                gameState.setGameOver();
+
             } else {
-                if (playerOne.getWinnerStatus() == false) {
+                if (gameState.getPlayerOne().getWinnerStatus() == false) {
                     System.out.println("\n");
                     System.out.println("Player Two's turn");
                     String playerTwoMove = playerInput.next();
@@ -139,14 +136,14 @@ public class Main {
                     }
 
                     // check if win condition is met after playerB makes a move
-                    gameState.isThreeConnected(r1, gameState.getPlayerTwo());
-                    gameState.isThreeConnected(r2, gameState.getPlayerTwo());
-                    gameState.isThreeConnected(r3, gameState.getPlayerTwo());
-                    gameState.isThreeConnected(c1, gameState.getPlayerTwo());
-                    gameState.isThreeConnected(c2, gameState.getPlayerTwo());
-                    gameState.isThreeConnected(c3, gameState.getPlayerTwo());
-                    gameState.isThreeConnected(d1, gameState.getPlayerTwo());
-                    gameState.isThreeConnected(d2, gameState.getPlayerTwo());
+                    gameState.isThreeConnected(row1, gameState.getPlayerTwo());
+                    gameState.isThreeConnected(row2, gameState.getPlayerTwo());
+                    gameState.isThreeConnected(row3, gameState.getPlayerTwo());
+                    gameState.isThreeConnected(column1, gameState.getPlayerTwo());
+                    gameState.isThreeConnected(column2, gameState.getPlayerTwo());
+                    gameState.isThreeConnected(column3, gameState.getPlayerTwo());
+                    gameState.isThreeConnected(diagonal1, gameState.getPlayerTwo());
+                    gameState.isThreeConnected(diagonal2, gameState.getPlayerTwo());
                     if (gameState.getNumPositionsFilled() == 9) {
                         gameBoard.setBoardFull();
                         System.out.println("Tie game! No winner.");
