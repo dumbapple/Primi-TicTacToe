@@ -17,10 +17,6 @@ public class Shape {
         associatedPlayer = player;
     }
 
-    public Player getAssociatedPlayer() {
-        return associatedPlayer;
-    }
-
     public void addOccupyingSpot(Position position) {
         spotsOccupied.add(position);
     }

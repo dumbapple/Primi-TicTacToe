@@ -15,6 +15,7 @@ public class Position {
     public String getName() {
         return name;
     }
+
     public void setFilled() {
         isFilled = true;
     }
@@ -27,7 +28,4 @@ public class Position {
         this.occupiedShape = occupiedShape;
     }
 
-    public Shape getOccupiedShape() {
-        return occupiedShape;
-    }
 }
