@@ -16,10 +16,6 @@ public class Board {
         isCompletelyFilled = true;
     }
 
-    public boolean isBoardFilled() {
-        return isCompletelyFilled;
-    }
-
     public List<Position> getPositions() {
         return positions;
     }
